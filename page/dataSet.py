@@ -151,7 +151,7 @@ fig = px.scatter(df_freqcine_clean,
                  color='Average revenue per entry (€)',
                  labels={
                      'Years': 'Years',
-                     'Box office (M€ current)': 'Receipt counter (current M€)',
+                     'Box office (M€ current)': 'Box office (M€ current)',
                      'color': 'Average revenue per entry (€)'
                  },
                  color_continuous_scale=custom_colors)
