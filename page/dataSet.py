@@ -141,7 +141,7 @@ with st.expander(f"First lines of the dataframe we are going to use:", expanded=
     st.write("French films in theaters based on their number of admissions:")
     st.dataframe(df_entrees_ff_clean.head(10))
 
-st.markdown('## **Revenue vs Year: Impact of Average Revenue per Entry**')
+st.markdown('## **Income vs Year: Impact of Average Income per Entry**')
 
 custom_colors = ['#F7EDE2', '#F5CAC3', '#F28482']
 
