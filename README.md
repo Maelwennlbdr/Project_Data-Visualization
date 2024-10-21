@@ -2,11 +2,11 @@
 
 [Streamlit Visualization](https://datavisualizationml.streamlit.app/)
 
-This is a project for the course Data Visualization. This project will present data from a dataset containing information on cinema attendance in France between 1980 and 2023.  
+This is a project for the course Data Visualization. This project presents data from a dataset containing information on cinema attendance in France between 1980 and 2023.  
 
 ## What this project covers:
-- **Porfolio**: Prensenting my study timeline, skills, and 4 projects (2 of machine learning, 2 of data visualization)
-- **Multiple graph**: About average income, attendance for each decade, french films admissions...
+- **Portfolio**: Presenting my study timeline, skills, and 4 projects (2 in machine learning, 2 in data visualization).
+- **Multiple graphs**: About average income, attendance for each decade, and French film admissions...
 
 ## Tools and Technologies Used:
 - **Python**: For data processing and analysis.
