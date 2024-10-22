@@ -141,7 +141,7 @@ with st.expander(f"First lines of the dataframe we are going to use:", expanded=
     st.write("French films in theaters based on their number of admissions:")
     st.dataframe(df_entrees_ff_clean.head(10))
 
-st.markdown('## **Revenue vs Year: Impact of Average Income  per Entry**')
+st.markdown('## **Income vs Year: Impact of Average Income per Entry**')
 
 custom_colors = ['#F7EDE2', '#F5CAC3', '#F28482']
 
@@ -151,7 +151,7 @@ fig = px.scatter(df_freqcine_clean,
                  color='Average income per entry (€)',
                  labels={
                      'Years': 'Years',
-                     'Box office (M€ current)': 'Receipt counter (current M€)',
+                     'Box office (M€ current)': 'Box office (M€ current)',
                      'color': 'Average income per entry (€)'
                  },
                  color_continuous_scale=custom_colors)
@@ -239,7 +239,7 @@ st.markdown('## **Total admissions in cinema for French films**')
 bar_chart_data = df_entrees_ff_clean.set_index('Years')
 st.bar_chart(bar_chart_data['Total'], color='#84A59D')
 
-st.markdown('## **Number of Movies by Entries (every 5 years)**')
+st.markdown('## **Number of Movies by Entries (Every 5 years)**')
 years = [1995, 2000, 2005, 2010, 2015, 2020, 2023]
 tabs = st.tabs([str(year) for year in years])
 
@@ -263,19 +263,15 @@ for i, year in enumerate(years):
     tabs[i].subheader(year)
     tabs[i].plotly_chart(fig)
 
+st.markdown('## **Number of Movies by Entries (All Years)**')
 
-st.markdown('## **Number of Movies by Entries (all years)**')
-
-# Transformation des données
 melted_data = df_entrees_ff_clean.melt(id_vars=['Years'],
                                        value_vars=[col for col in df_entrees_ff_clean.columns if col != 'Years' and col != 'Total'],
                                        var_name='Entry Category',
                                        value_name='Number of Entries')
 
-# Personnalisation des couleurs
 custom_colors = ['#F28482', '#3B524C', '#84A59D', '#F6BD60', '#C7B8A8', '#F5CAC3', '#C2837A']
 
-# Création du bar chart avec Plotly Express
 fig = px.bar(melted_data,
              x='Years',
              y='Number of Entries',
@@ -283,5 +279,4 @@ fig = px.bar(melted_data,
              labels={'Number of Entries': 'Number of Movies', 'Entry Category': 'Entry Category'},
              color_discrete_sequence=custom_colors)
 
-# Affichage du graphique dans Streamlit
 st.plotly_chart(fig)
