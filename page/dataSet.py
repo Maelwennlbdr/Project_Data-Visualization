@@ -97,7 +97,7 @@ df_freqcine_clean.rename(columns={
     df_freqcine_clean.columns[1]: 'Sessions (thousands)',
     df_freqcine_clean.columns[2]: 'Entries (millions)',
     df_freqcine_clean.columns[3]: 'Box office (M€ current)',
-    df_freqcine_clean.columns[4]: 'Average revenue per entry (€)'
+    df_freqcine_clean.columns[4]: 'Average income per entry (€)'
 }, inplace=True)
 df_freqcine_clean.replace('-', np.nan, inplace=True)
 
@@ -141,18 +141,18 @@ with st.expander(f"First lines of the dataframe we are going to use:", expanded=
     st.write("French films in theaters based on their number of admissions:")
     st.dataframe(df_entrees_ff_clean.head(10))
 
-st.markdown('## **Revenue vs Year: Impact of Average Revenue per Entry**')
+st.markdown('## **Revenue vs Year: Impact of Average Income  per Entry**')
 
 custom_colors = ['#F7EDE2', '#F5CAC3', '#F28482']
 
 fig = px.scatter(df_freqcine_clean,
                  x='Years',
                  y='Box office (M€ current)',
-                 color='Average revenue per entry (€)',
+                 color='Average income per entry (€)',
                  labels={
                      'Years': 'Years',
                      'Box office (M€ current)': 'Receipt counter (current M€)',
-                     'color': 'Average revenue per entry (€)'
+                     'color': 'Average income per entry (€)'
                  },
                  color_continuous_scale=custom_colors)
 
@@ -234,12 +234,12 @@ fig_months = px.bar(average_revenue_by_year, x='Years', y='Average income', labe
 fig_months.update_traces(marker_color='#F6BD60')
 tab2.plotly_chart(fig_months)
 
-st.markdown('## **Histogram of total admissions in cinema by year for French films**')
+st.markdown('## **Total admissions in cinema for French films**')
 
 bar_chart_data = df_entrees_ff_clean.set_index('Years')
 st.bar_chart(bar_chart_data['Total'], color='#84A59D')
 
-st.markdown('## **Number of Movies by Entries by Year**')
+st.markdown('## **Number of Movies by Entries (every 5 years)**')
 years = [1995, 2000, 2005, 2010, 2015, 2020, 2023]
 tabs = st.tabs([str(year) for year in years])
 
@@ -262,3 +262,26 @@ for i, year in enumerate(years):
 
     tabs[i].subheader(year)
     tabs[i].plotly_chart(fig)
+
+
+st.markdown('## **Number of Movies by Entries (all years)**')
+
+# Transformation des données
+melted_data = df_entrees_ff_clean.melt(id_vars=['Years'],
+                                       value_vars=[col for col in df_entrees_ff_clean.columns if col != 'Years' and col != 'Total'],
+                                       var_name='Entry Category',
+                                       value_name='Number of Entries')
+
+# Personnalisation des couleurs
+custom_colors = ['#F28482', '#3B524C', '#84A59D', '#F6BD60', '#C7B8A8', '#F5CAC3', '#C2837A']
+
+# Création du bar chart avec Plotly Express
+fig = px.bar(melted_data,
+             x='Years',
+             y='Number of Entries',
+             color='Entry Category',
+             labels={'Number of Entries': 'Number of Movies', 'Entry Category': 'Entry Category'},
+             color_discrete_sequence=custom_colors)
+
+# Affichage du graphique dans Streamlit
+st.plotly_chart(fig)
